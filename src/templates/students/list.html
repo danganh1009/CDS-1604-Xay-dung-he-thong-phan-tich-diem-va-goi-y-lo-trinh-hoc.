@@ -1,0 +1,41 @@
+{% extends "home.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">Danh sách sinh viên</h2>
+    <a href="{{ url_for('add_student') }}" class="btn btn-primary mb-3">Thêm sinh viên mới</a>
+    
+    <table class="table table-striped table-entity">
+        <thead>
+            <tr>
+                <th>Mã sinh viên</th>
+                <th>Họ tên</th>
+                <th>Lớp</th>
+                <th>Chuyên ngành</th>
+                <th>Năm nhập học</th>
+                <th>Điểm trung bình</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.student_id }}</td>
+                <td>{{ student.name }}</td>
+                <td>{{ student.class_name }}</td>
+                <td>{{ student.major }}</td>
+                <td>{{ student.entry_year }}</td>
+                <td>{{ "%.2f"|format(student.gpa) }}</td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <a href="{{ url_for('list_grades', student_id=student.student_id) }}" class="btn btn-info btn-sm">Xem điểm</a>
+                        <a href="{{ url_for('student_analysis', student_id=student.student_id) }}" class="btn btn-success btn-sm">Phân tích</a>
+                        <a href="{{ url_for('student_roadmap', student_id=student.student_id) }}" class="btn btn-primary btn-sm">Lộ trình</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

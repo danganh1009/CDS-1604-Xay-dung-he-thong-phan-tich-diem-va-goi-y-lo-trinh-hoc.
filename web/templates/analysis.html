@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h2><i class="fas fa-chart-line"></i> Phân tích học tập</h2>
+
+<div class="row g-3 mt-2">
+  <div class="col-md-6">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Tiến độ học tập</h5>
+        <form action="{{ url_for('student_progress') }}" method="get" class="d-flex gap-2">
+          <input type="text" class="form-control" name="student_id" placeholder="Nhập mã sinh viên" required>
+          <button class="btn btn-primary" type="submit">Xem</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Phân tích kết quả học tập</h5>
+        <form action="{{ url_for('academic_performance') }}" method="get" class="d-flex gap-2">
+          <input type="text" class="form-control" name="student_id" placeholder="Nhập mã sinh viên" required>
+          <button class="btn btn-primary" type="submit">Xem</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Các môn có thể đăng ký</h5>
+        <form action="{{ url_for('available_courses') }}" method="get" class="d-flex gap-2">
+          <input type="text" class="form-control" name="student_id" placeholder="Nhập mã sinh viên" required>
+          <button class="btn btn-primary" type="submit">Xem</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Đề xuất môn học kỳ tới</h5>
+        <form action="{{ url_for('course_suggestions') }}" method="get" class="d-flex gap-2">
+          <input type="text" class="form-control" name="student_id" placeholder="Nhập mã sinh viên" required>
+          <button class="btn btn-primary" type="submit">Xem</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Bảng cảnh báo sớm (AI)</h5>
+        <form action="{{ url_for('risk_dashboard') }}" method="get" class="row g-2 align-items-end">
+          <div class="col-auto">
+            <label class="form-label">Học kỳ</label>
+            <input type="number" min="1" max="3" class="form-control" name="semester" placeholder="1-3">
+          </div>
+          <div class="col-auto">
+            <label class="form-label">Năm</label>
+            <input type="number" class="form-control" name="year" placeholder="2025">
+          </div>
+          <div class="col-auto">
+            <button class="btn btn-danger" type="submit">Mở dashboard</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+

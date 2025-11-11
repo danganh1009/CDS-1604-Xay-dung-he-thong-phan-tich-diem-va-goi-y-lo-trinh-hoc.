@@ -1,0 +1,83 @@
+{% extends "home.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">Điểm danh mới</h2>
+    
+    <form method="POST" action="{{ url_for('add_attendance') }}">
+        <div class="mb-3">
+            <label for="course_code" class="form-label">Môn học</label>
+            <select class="form-control" id="course_code" name="course_code" required>
+                <option value="">Chọn môn học...</option>
+                {% for course in courses %}
+                    <option value="{{ course.course_code }}">{{ course.course_name }} ({{ course.course_code }})</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="mb-3">
+            <label for="date" class="form-label">Ngày</label>
+            <input type="date" class="form-control" id="date" name="date" value="{{ today }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="semester" class="form-label">Học kỳ</label>
+            <select class="form-control" id="semester" name="semester" required>
+                <option value="1">Học kỳ 1</option>
+                <option value="2">Học kỳ 2</option>
+                <option value="3">Học kỳ 3</option>
+            </select>
+        </div>
+        
+        <div class="mb-3">
+            <label for="year" class="form-label">Năm học</label>
+            <input type="number" class="form-control" id="year" name="year" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Danh sách sinh viên</label>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>MSSV</th>
+                            <th>Họ và tên</th>
+                            <th>Trạng thái</th>
+                            <th>Ghi chú</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for student in students %}
+                        <tr>
+                            <td>{{ student.student_id }}</td>
+                            <td>{{ student.name }}</td>
+                            <td>
+                                <select class="form-control" name="status_{{ student.student_id }}" required>
+                                    <option value="present">Có mặt</option>
+                                    <option value="late">Đi muộn</option>
+                                    <option value="absent">Vắng mặt</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" name="note_{{ student.student_id }}" placeholder="Ghi chú">
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Điểm danh</button>
+        <a href="{{ url_for('list_attendance') }}" class="btn btn-secondary">Quay lại</a>
+    </form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Tự động điền năm học hiện tại
+    const currentYear = new Date().getFullYear();
+    document.getElementById('year').value = currentYear;
+});
+</script>
+{% endblock %}

@@ -1,0 +1,117 @@
+{% extends "home.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">Phân tích kết quả học tập</h2>
+    
+    <div class="card mb-4">
+        <div class="card-body">
+            <h3 class="card-title">Thông tin sinh viên</h3>
+            <table class="table">
+                <tr>
+                    <th>Họ và tên:</th>
+                    <td>{{ analysis.student_info.name }}</td>
+                    <th>Mã sinh viên:</th>
+                    <td>{{ analysis.student_info.student_id }}</td>
+                </tr>
+                <tr>
+                    <th>Chuyên ngành:</th>
+                    <td>{{ analysis.student_info.major }}</td>
+                    <th>Năm nhập học:</th>
+                    <td>{{ analysis.student_info.enrollment_year }}</td>
+                </tr>
+                <tr>
+                    <th>Điểm trung bình tích lũy:</th>
+                    <td>{{ "%.2f"|format(analysis.student_info.gpa) }}</td>
+                    <th>Số tín chỉ đã hoàn thành:</th>
+                    <td>{{ analysis.credits_completed }}/{{ analysis.credits_completed + analysis.credits_remaining }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h4 class="card-title">Môn học xuất sắc</h4>
+                    <ul class="list-group">
+                    {% for course in analysis.best_courses %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ course.course }}
+                            <span class="badge bg-success rounded-pill">{{ "%.1f"|format(course.grade) }}</span>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h4 class="card-title">Môn học cần cải thiện</h4>
+                    <ul class="list-group">
+                    {% for course in analysis.failed_courses %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ course.course }}
+                            <span class="badge bg-danger rounded-pill">{{ "%.1f"|format(course.grade) }}</span>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h4 class="card-title">Kết quả học tập theo học kỳ</h4>
+            <div class="accordion" id="semesterAccordion">
+            {% for semester, data in analysis.performance_by_semester.items() %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#semester{{ loop.index }}">
+                            Học kỳ {{ semester }} - GPA: {{ "%.2f"|format(data.average) }}
+                        </button>
+                    </h2>
+                    <div id="semester{{ loop.index }}" class="accordion-collapse collapse" data-bs-parent="#semesterAccordion">
+                        <div class="accordion-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Môn học</th>
+                                        <th>Số tín chỉ</th>
+                                        <th>Điểm</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for grade in data.grades %}
+                                    <tr>
+                                        <td>{{ grade.course }}</td>
+                                        <td>{{ grade.credits }}</td>
+                                        <td>{{ "%.1f"|format(grade.grade) if grade.grade else "Chưa có" }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Tổng số tín chỉ:</th>
+                                        <td colspan="2">{{ data.credits }}</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="text-center mb-4">
+        <a href="{{ url_for('student_roadmap', student_id=analysis.student_info.student_id) }}" class="btn btn-primary">Xem lộ trình học tập đề xuất</a>
+        <a href="{{ url_for('student_forecast', student_id=analysis.student_info.student_id) }}" class="btn btn-warning">Dự báo lộ trình tương lai</a>
+        <a href="{{ url_for('list_students') }}" class="btn btn-secondary">Quay lại danh sách</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0"><i class="fas fa-user-plus"></i> Thêm Sinh viên Mới</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('add_student') }}">
+                    <div class="mb-3">
+                        <label for="student_id" class="form-label">Mã sinh viên</label>
+                        <input type="text" class="form-control" id="student_id" name="student_id" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Họ và tên</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="class_name" class="form-label">Lớp</label>
+                        <input type="text" class="form-control" id="class_name" name="class_name" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="major" class="form-label">Chuyên ngành</label>
+                        <input type="text" class="form-control" id="major" name="major" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="enrollment_year" class="form-label">Năm nhập học</label>
+                        <input type="number" class="form-control" id="enrollment_year" name="enrollment_year" required>
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Lưu thông tin
+                        </button>
+                        <a href="{{ url_for('students') }}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Quay lại
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

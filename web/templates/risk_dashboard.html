@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>Phân tích rủi ro học tập - Học kỳ {{ semester }}/{{ year }}</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Sinh viên</th>
+      <th>Mã SV</th>
+      <th>Mức rủi ro</th>
+      <th>Điểm rủi ro</th>
+      <th>Yếu tố</th>
+      <th>Cập nhật</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for a in alerts %}
+    <tr>
+      <td>{{ a.student.name }}</td>
+      <td>{{ a.student.student_id }}</td>
+      <td>
+        {% if a.risk_level == 'high' %}
+          <span style="color:#b00020;font-weight:bold">Cao</span>
+        {% elif a.risk_level == 'medium' %}
+          <span style="color:#e87800;font-weight:bold">Trung bình</span>
+        {% else %}
+          <span style="color:#1976d2;font-weight:bold">Thấp</span>
+        {% endif %}
+      </td>
+      <td>{{ '%.1f'|format(a.risk_score) }}</td>
+      <td>
+        {% for f in (a._parsed_factors.get('factors', []) if a._parsed_factors else [])[:3] %}
+          <div>- {{ f }}</div>
+        {% endfor %}
+      </td>
+      <td>{{ a.created_at }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+  </table>
+
+<form method="get" action="{{ url_for('risk_dashboard') }}" style="margin-top:16px;">
+  <label>Học kỳ: <input type="number" name="semester" value="{{ semester }}" min="1" max="3"></label>
+  <label style="margin-left:8px;">Năm: <input type="number" name="year" value="{{ year }}"></label>
+  <button class="btn btn-primary" type="submit">Xem</button>
+</form>
+
+{% endblock %}
+

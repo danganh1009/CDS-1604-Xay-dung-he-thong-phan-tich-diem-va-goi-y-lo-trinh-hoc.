@@ -1,0 +1,140 @@
+/* Colorful, modern theme */
+:root {
+  --primary: #4f46e5;
+  --secondary: #06b6d4;
+  --success: #16a34a;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #0ea5e9;
+  --bg: #0f172a;
+  --card: #111827;
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+  --accent1: #a78bfa;
+  --accent2: #34d399;
+  --accent3: #f472b6;
+}
+
+body {
+  background: linear-gradient(135deg, #0f172a, #1f2937) fixed;
+  color: var(--text);
+}
+
+.navbar {
+  background: linear-gradient(90deg, var(--primary), var(--secondary)) !important;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.card {
+  background: radial-gradient(100% 100% at 0% 0%, #0b1220 0%, #0f172a 100%);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  border-radius: 16px;
+  color: var(--text);
+}
+
+.card-title {
+  color: var(--accent1);
+  font-weight: 700;
+}
+
+.table {
+  color: var(--text);
+}
+
+.table thead th {
+  color: var(--accent2);
+  border-bottom-color: rgba(255,255,255,0.1);
+}
+
+.table tbody tr {
+  border-color: rgba(255,255,255,0.06);
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  border: none;
+  box-shadow: 0 6px 20px rgba(79,70,229,0.4);
+}
+
+.btn-info { background-color: var(--info); border: none; }
+.btn-success { background-color: var(--success); border: none; }
+.btn-warning { background-color: var(--warning); border: none; }
+.btn-danger { background-color: var(--danger); border: none; }
+.btn-secondary { background-color: #475569; border: none; }
+
+.badge.bg-primary { background: linear-gradient(90deg, var(--primary), var(--accent1)) !important; }
+.badge.bg-info { background: linear-gradient(90deg, var(--info), var(--secondary)) !important; }
+.badge.bg-success { background: linear-gradient(90deg, var(--success), var(--accent2)) !important; }
+.badge.bg-danger { background: linear-gradient(90deg, var(--danger), #fb7185) !important; }
+
+.progress {
+  background: rgba(255,255,255,0.08);
+  border-radius: 10px;
+}
+.progress-bar {
+  background: linear-gradient(90deg, var(--accent2), var(--primary));
+}
+
+.alert {
+  border: none;
+  border-radius: 12px;
+  color: #0b1220;
+}
+.alert-success { background: #bbf7d0; }
+.alert-warning { background: #fde68a; }
+.alert-danger  { background: #fecaca; }
+.alert-info    { background: #bae6fd; }
+
+/* Cards on homepage */
+.feature-card .card-body {
+  background: linear-gradient(135deg, rgba(79,70,229,0.2), rgba(14,165,233,0.15));
+  border-radius: 12px;
+}
+
+/* Accordion styling */
+.accordion-button {
+  color: var(--text);
+  background: rgba(255,255,255,0.05);
+}
+.accordion-button:not(.collapsed) {
+  color: var(--accent1);
+  background: rgba(79,70,229,0.15);
+}
+.accordion-item {
+  background: transparent;
+  border-color: rgba(255,255,255,0.08);
+}
+
+/* Links */
+a, .nav-link {
+  color: #e2e8f0;
+}
+a:hover, .nav-link:hover {
+  color: #fff;
+}
+
+/* Only Students and Courses tables: force white text for readability */
+.table-entity {
+  color: #ffffff !important;
+}
+.table-entity thead th {
+  color: #ffffff !important;
+}
+.table-entity td, .table-entity th {
+  border-color: rgba(255,255,255,0.15) !important;
+}
+
+/* Improve contrast for alternating rows on entity tables */
+.table-entity.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(255,255,255,0.06) !important;
+  color: #ffffff !important;
+}
+.table-entity.table-striped tbody tr:nth-of-type(even) {
+  background-color: rgba(255,255,255,0.02) !important;
+  color: #ffffff !important;
+}
+.table-entity tbody td, .table-entity tbody th {
+  color: #ffffff !important;
+}
+

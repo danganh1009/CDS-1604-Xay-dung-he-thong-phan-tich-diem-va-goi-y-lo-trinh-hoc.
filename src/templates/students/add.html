@@ -1,0 +1,31 @@
+{% extends "home.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">Thêm sinh viên mới</h2>
+    <form method="POST" action="{{ url_for('add_student') }}">
+        <div class="mb-3">
+            <label for="student_id" class="form-label">Mã sinh viên</label>
+            <input type="text" class="form-control" id="student_id" name="student_id" required>
+        </div>
+        <div class="mb-3">
+            <label for="name" class="form-label">Họ tên</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="mb-3">
+            <label for="class_name" class="form-label">Lớp</label>
+            <input type="text" class="form-control" id="class_name" name="class_name" required>
+        </div>
+        <div class="mb-3">
+            <label for="major" class="form-label">Chuyên ngành</label>
+            <input type="text" class="form-control" id="major" name="major" required>
+        </div>
+        <div class="mb-3">
+            <label for="enrollment_year" class="form-label">Năm nhập học</label>
+            <input type="number" class="form-control" id="enrollment_year" name="enrollment_year" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Thêm sinh viên</button>
+        <a href="{{ url_for('list_students') }}" class="btn btn-secondary">Quay lại</a>
+    </form>
+</div>
+{% endblock %}

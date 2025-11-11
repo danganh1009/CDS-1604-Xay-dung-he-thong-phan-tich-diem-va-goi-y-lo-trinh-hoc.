@@ -1,0 +1,107 @@
+{% extends "home.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">Lộ trình học tập đề xuất</h2>
+    
+    <div class="card mb-4">
+        <div class="card-body">
+            <h3 class="card-title">Thông tin sinh viên</h3>
+            <table class="table">
+                <tr>
+                    <th>Họ và tên:</th>
+                    <td>{{ roadmap.student_info.name }}</td>
+                    <th>Mã sinh viên:</th>
+                    <td>{{ roadmap.student_info.student_id }}</td>
+                </tr>
+                <tr>
+                    <th>Chuyên ngành:</th>
+                    <td>{{ roadmap.student_info.major }}</td>
+                    <th>Tiến độ:</th>
+                    <td>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" 
+                                style="width: {{ ((roadmap.completed_courses|length) / ((roadmap.completed_courses|length) + (roadmap.remaining_courses|length)) * 100)|round if (roadmap.completed_courses|length + roadmap.remaining_courses|length) > 0 else 0 }}%"
+                                aria-valuenow="{{ roadmap.completed_courses|length }}"
+                                aria-valuemin="0"
+                                aria-valuemax="{{ (roadmap.completed_courses|length) + (roadmap.remaining_courses|length) }}">
+                                {{ roadmap.completed_courses|length }}/{{ (roadmap.completed_courses|length) + (roadmap.remaining_courses|length) }} môn học
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h4 class="card-title">Kế hoạch học tập</h4>
+                    <div class="accordion" id="roadmapAccordion">
+                    {% for semester, data in roadmap.recommended_path.items() %}
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#semester{{ loop.index }}">
+                                    {{ semester }} - {{ data.total_credits }} tín chỉ
+                                </button>
+                            </h2>
+                            <div id="semester{{ loop.index }}" class="accordion-collapse collapse" data-bs-parent="#roadmapAccordion">
+                                <div class="accordion-body">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Mã môn học</th>
+                                                <th>Tên môn học</th>
+                                                <th>Số tín chỉ</th>
+                                                <th>Loại môn học</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for course in data.courses %}
+                                            <tr>
+                                                <td>{{ course.course_code }}</td>
+                                                <td>{{ course.course_name }}</td>
+                                                <td>{{ course.credits }}</td>
+                                                <td>
+                                                    <span class="badge {% if course.is_mandatory %}bg-primary{% else %}bg-info{% endif %}">
+                                                        {{ "Bắt buộc" if course.is_mandatory else "Tự chọn" }}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th colspan="2">Tổng số tín chỉ:</th>
+                                                <td colspan="2">{{ data.total_credits }}</td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="alert alert-info">
+        <h5>Lưu ý:</h5>
+        <ul>
+            <li>Lộ trình học tập này được tạo dựa trên kết quả học tập hiện tại và các điều kiện tiên quyết của môn học.</li>
+            <li>Các môn bắt buộc sẽ được ưu tiên sắp xếp trước.</li>
+            <li>Số tín chỉ mỗi học kỳ được cân đối để đảm bảo tiến độ học tập phù hợp.</li>
+            <li>Bạn có thể điều chỉnh lộ trình này theo nhu cầu và khả năng cá nhân.</li>
+        </ul>
+    </div>
+
+    <div class="text-center mb-4">
+        <a href="{{ url_for('student_analysis', student_id=roadmap.student_info.student_id) }}" class="btn btn-info">Xem phân tích kết quả học tập</a>
+        <a href="{{ url_for('list_students') }}" class="btn btn-secondary">Quay lại danh sách</a>
+    </div>
+</div>
+{% endblock %}

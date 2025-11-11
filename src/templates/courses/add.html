@@ -1,0 +1,42 @@
+{% extends "home.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">Thêm môn học mới</h2>
+    <form method="POST" action="{{ url_for('add_course') }}">
+        <div class="mb-3">
+            <label for="course_code" class="form-label">Mã môn học</label>
+            <input type="text" class="form-control" id="course_code" name="course_code" required>
+        </div>
+        <div class="mb-3">
+            <label for="course_name" class="form-label">Tên môn học</label>
+            <input type="text" class="form-control" id="course_name" name="course_name" required>
+        </div>
+        <div class="mb-3">
+            <label for="credits" class="form-label">Số tín chỉ</label>
+            <input type="number" class="form-control" id="credits" name="credits" required min="1" max="6">
+        </div>
+        <div class="mb-3">
+            <label for="recommended_semester" class="form-label">Học kỳ đề xuất</label>
+            <input type="number" class="form-control" id="recommended_semester" name="recommended_semester">
+        </div>
+        <div class="mb-3">
+            <label for="is_mandatory" class="form-label">Loại môn học</label>
+            <select class="form-control" id="is_mandatory" name="is_mandatory">
+                <option value="1">Bắt buộc</option>
+                <option value="0">Tự chọn</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="major" class="form-label">Chuyên ngành</label>
+            <input type="text" class="form-control" id="major" name="major" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Mô tả</label>
+            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Thêm môn học</button>
+        <a href="{{ url_for('list_courses') }}" class="btn btn-secondary">Quay lại</a>
+    </form>
+</div>
+{% endblock %}

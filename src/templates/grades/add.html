@@ -1,0 +1,49 @@
+{% extends "home.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">Thêm điểm mới</h2>
+    <form method="POST" action="{{ url_for('add_grade') }}">
+        <div class="mb-3">
+            <label for="student_id" class="form-label">Sinh viên</label>
+            <select class="form-control" id="student_id" name="student_id" required>
+                <option value="">Chọn sinh viên...</option>
+                {% for student in students %}
+                    <option value="{{ student.student_id }}">{{ student.name }} ({{ student.student_id }})</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="course_code" class="form-label">Môn học</label>
+            <select class="form-control" id="course_code" name="course_code" required>
+                <option value="">Chọn môn học...</option>
+                {% for course in courses %}
+                    <option value="{{ course.course_code }}">{{ course.course_name }} ({{ course.course_code }})</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="midterm_grade" class="form-label">Điểm giữa kỳ</label>
+            <input type="number" class="form-control" id="midterm_grade" name="midterm_grade" required min="0" max="10" step="0.1">
+        </div>
+        <div class="mb-3">
+            <label for="final_grade" class="form-label">Điểm cuối kỳ</label>
+            <input type="number" class="form-control" id="final_grade" name="final_grade" required min="0" max="10" step="0.1">
+        </div>
+        <div class="mb-3">
+            <label for="semester" class="form-label">Học kỳ</label>
+            <select class="form-control" id="semester" name="semester" required>
+                <option value="1">Học kỳ 1</option>
+                <option value="2">Học kỳ 2</option>
+                <option value="3">Học kỳ 3</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="year" class="form-label">Năm học</label>
+            <input type="number" class="form-control" id="year" name="year" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Thêm điểm</button>
+        <a href="{{ url_for('list_grades') }}" class="btn btn-secondary">Quay lại</a>
+    </form>
+</div>
+{% endblock %}

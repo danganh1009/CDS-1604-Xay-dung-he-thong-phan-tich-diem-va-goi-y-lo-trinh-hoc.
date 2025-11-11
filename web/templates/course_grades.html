@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">
+            <i class="fas fa-book"></i> {{ course.course_name }}
+            <small class="ms-2">({{ course.course_code }})</small>
+        </h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <p><strong>Số tín chỉ:</strong> {{ course.credits }}</p>
+            </div>
+            <div class="col-md-4">
+                <p><strong>Học kỳ đề xuất:</strong> {{ course.recommended_semester }}</p>
+            </div>
+            <div class="col-md-4">
+                <p><strong>Loại:</strong> {{ "Bắt buộc" if course.is_mandatory else "Tự chọn" }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Sinh viên</th>
+                        <th>Mã SV</th>
+                        <th>Điểm GK</th>
+                        <th>Điểm CK</th>
+                        <th>Điểm TB</th>
+                        <th>Học kỳ</th>
+                        <th>Năm</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for grade in grades %}
+                    <tr>
+                        <td>{{ grade.student.name }}</td>
+                        <td>{{ grade.student.student_id }}</td>
+                        <td>{{ grade.midterm_grade }}</td>
+                        <td>{{ grade.final_grade }}</td>
+                        <td>{{ "%.1f"|format(grade.average_grade) if grade.average_grade else "N/A" }}</td>
+                        <td>{{ grade.semester }}</td>
+                        <td>{{ grade.year }}</td>
+                        <td>
+                            {% if grade.grade_status == 'Đạt' %}
+                                <span class="badge bg-success">{{ grade.grade_status }}</span>
+                            {% else %}
+                                <span class="badge bg-danger">{{ grade.grade_status }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="{{ url_for('grades') }}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Quay lại
+    </a>
+</div>
+{% endblock %}
