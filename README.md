@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Hệ thống Quản lý Điểm Sinh viên
 
 Đây là một ứng dụng Python đơn giản để quản lý điểm sinh viên, cho phép người dùng thực hiện các thao tác cơ bản như thêm, xem, cập nhật và xóa thông tin sinh viên, môn học và điểm số.
@@ -68,3 +69,26 @@ Mọi đóng góp đều được hoan nghênh! Hãy tạo issue hoặc pull req
 ## Giấy phép
 
 [MIT License](https://opensource.org/licenses/MIT)
+=======
+ <h2 align="center">
+    <a href="https://dainam.edu.vn/vi/khoa-cong-nghe-thong-tin">
+    🎓 Faculty of Information Technology (DaiNam University)
+    </a>
+</h2>
+<h2 align="center">
+   GAME TIC TAC TOE (CARO 3x3) SỬ DỤNG GIAO THỨC TCP
+</h2>
+<div align="center">
+    <p align="center">
+        <img src="docs/aiotlab_logo.png" alt="AIoTLab Logo" width="170"/>
+        <img src="docs/fitdnu_logo.png" alt="AIoTLab Logo" width="180"/>
+        <img src="docs/dnu_logo.png" alt="DaiNam University Logo" width="200"/>
+    </p>
+
+[![AIoTLab](https://img.shields.io/badge/AIoTLab-green?style=for-the-badge)](https://www.facebook.com/DNUAIoTLab)
+[![Faculty of Information Technology](https://img.shields.io/badge/Faculty%20of%20Information%20Technology-blue?style=for-the-badge)](https://dainam.edu.vn/vi/khoa-cong-nghe-thong-tin)
+[![DaiNam University](https://img.shields.io/badge/DaiNam%20University-orange?style=for-the-badge)](https://dainam.edu.vn)
+
+
+</div>
+>>>>>>> b14a0fd5c202f0501022f92d3e6b0eda88a44775
